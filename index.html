@@ -13,13 +13,13 @@
         .list {
             width: 300px;
             height: 500px;
-            margin: auto auto;
+            margin: 0 auto;
         }
 
-        .list h3 {
+        h3 {
             text-align: center;
-            border: 1px solid;
-            border-color: silver white white silver;
+            border: 1px solid gray;
+            background-color: #f0f0f0;
         }
 
         a:link {
@@ -40,6 +40,29 @@
             color: blue;
         }
     </style>
+    <script type="text/javascript">
+
+        function changeColor() {
+            if (this.style.backgroundColor!=='silver') {
+                this.style.backgroundColor = 'silver';
+                this.style.color = 'white';
+                this.style.borderColor = 'white';
+            } else {
+                this.style.backgroundColor = '#f0f0f0';
+                this.style.color = 'black';
+                this.style.borderColor = 'gray';
+            }
+        }
+
+        window.onload = function () {
+            var h3tag = document.getElementsByTagName('h3');
+            for (var i=0; i<h3tag.length; i++) {
+                h3tag[i].addEventListener('mouseover',changeColor);
+                h3tag[i].addEventListener('mouseout',changeColor);
+            }
+        };
+
+    </script>
 </head>
 <body>
     <div class="list">

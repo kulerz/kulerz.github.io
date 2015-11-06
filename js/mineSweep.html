@@ -245,9 +245,13 @@
         function hideMine(e) {
             var mineClicked = document.getElementById(this.markID);
 
-            //右键标记
+            //右键标记，已标记则取消
             if (e.buttons==2) {
-                this.className = 'mark';
+                if (this.className==='mined') {
+                    this.className = 'mark';
+                } else if (this.className==='mark') {
+                    this.className = 'mined';
+                }
             }
 
             //左键打开格子
@@ -265,38 +269,31 @@
                     //四个角
                     if (this.markID==1) {
                         var arr = [this.markID+1,this.markID+1+levelNum,this.markID+levelNum];
-                        showRest(arr);
                     } else if (this.markID==levelNum) {
                         arr = [this.markID-1,this.markID-1+levelNum,this.markID+levelNum];
-                        showRest(arr);
                     } else if (this.markID==level) {
                         arr = [this.markID-1,this.markID-1-levelNum,this.markID-levelNum];
-                        showRest(arr);
                     } else if (this.markID==(level-levelNum+1)) {
                         arr = [this.markID+1,this.markID+1-levelNum,this.markID-levelNum];
-                        showRest(arr);
                     }
 
                     //四条边
                     else if (this.markID>1 && this.markID<levelNum) {
                         arr = [this.markID+1,this.markID+1+levelNum,this.markID+levelNum,this.markID-1,this.markID-1+levelNum];
-                        showRest(arr);
                     } else if (this.markID>(level-levelNum+1) && this.markID<level) {
                         arr = [this.markID-1,this.markID-1-levelNum,this.markID-levelNum,this.markID+1,this.markID+1-levelNum];
-                        showRest(arr);
                     } else if (this.markID>levelNum && this.markID<(level-levelNum) && (this.markID-1)%levelNum==0) {
-                        arr = [this.markID+1,this.markID+1-levelNum,this.markID-levelNum,this.markID+1+levelNum,this.markID-levelNum];
-                        showRest(arr);
+                        arr = [this.markID+1,this.markID+1-levelNum,this.markID+levelNum,this.markID+1+levelNum,this.markID-levelNum];
                     } else if (this.markID>levelNum && this.markID<(level-levelNum+1) && this.markID%levelNum==0) {
                         arr = [this.markID-1,this.markID-1-levelNum,this.markID-1+levelNum,this.markID+levelNum,this.markID-levelNum];
-                        showRest(arr);
                     }
 
                     //中间区域
                     else {
                         arr = [this.markID-levelNum,this.markID+levelNum,this.markID-1+levelNum,this.markID-1-levelNum,this.markID+1+levelNum,this.markID+1-levelNum,this.markID+1,this.markID-1];
-                        showRest(arr);
                     }
+
+                    showRest(arr);
                 }
             }
         }
@@ -317,6 +314,10 @@
             var mark = document.getElementsByClassName('mark');
             if (hide.length==level-minesNum && mark.length==minesNum) {
                 document.getElementById('prompt').innerHTML = '<p>恭喜！扫雷成功！</p>';
+                for (var i=0; i<mark.length; i++) {
+                    mark[i].style.backgroundColor = 'green';
+                    mark[i].removeEventListener('mousedown', hideMine);
+                }
             }
         }
 
@@ -336,7 +337,7 @@
 
 <body>
 <div id="mineLevel">
-    <h4>扫雷游戏 minesweep by kulerz</h4>
+    <h4>扫雷游戏 mineSweep by kulerz</h4>
     <p>游戏规则:左键单击打开格子，右键标记地雷，打开所有安全格子标记所有地雷后成功，助你好运！</p>
     <div id="button">
         <input type="button" value="初级" onclick="CreateMine(81,10)">
