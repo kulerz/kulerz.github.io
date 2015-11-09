@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>华为商城导航菜单</title>
+    <style type="text/css">
+        body, h2, h3, span, ul, li, a {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        body {
+            background-color: gainsboro;
+        }
+
+        h1 {
+            width: 270px;
+            margin: 10px auto;
+        }
+
+        .nav {
+            width: 220px;
+            background-color: #E63547;
+            color: #FFFFFF;
+            font-size: 13px;
+            font-family: "Microsoft YaHei UI", cursive;
+            margin: 0 auto;
+        }
+
+        .topNav {
+            width: 218px;
+            border: 1px solid #F86675;
+            border-bottom-color: #DA3243;
+            height: 38px;
+            position: relative;
+        }
+
+        .topNav h2 {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 38px;
+            text-indent: 15px;
+        }
+
+        .topNav span {
+            font-weight: 300;
+            position: absolute;
+            left: 190px;
+            top: 10px;
+        }
+
+        .subNav {
+            border: 1px solid #F86675;
+            border-top-color: #EA4152;
+            position: relative;
+            display: none;
+        }
+
+        .subNav li {
+            width: 213px;
+            height: 50px;
+            margin-left: 6px;
+            text-indent: 9px;
+            padding-top: 7px;
+        }
+
+        .subNavListHover {
+            background-color: #FCF7F7;
+        }
+
+        .subNavListHover .subNavTitle a {
+            color: #EA4152;
+        }
+
+        .subNavListHover .subNavLink a {
+            color: #DC96A3;
+        }
+
+        .subNavListHover .subNavLink a:hover {
+            color: #CA738D;
+        }
+
+        .subNavTitle {
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .subNavTitle a {
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+        .subNavLink {
+            margin-left: 9px;
+        }
+
+        .subNavLink a {
+            color: #FBB7AF;
+            text-decoration: none;
+        }
+
+        .subNavLink a:hover {
+            color: #D59698;
+        }
+
+        .subNavRightHide {
+            display: none;
+        }
+
+        .subNavRight {
+            width: 158px;
+            position: absolute;
+            left: 219px;
+            top: 0;
+            background-color: #FCF7F7;
+            border: 1px solid #EFEAEA;
+            border-left: none;
+        }
+
+        .subNavRight li {
+            height: 37px;
+            line-height: 37px;
+            margin: 0;
+            padding: 0;
+            text-indent: 22px;
+        }
+
+        .subNavRight li a {
+            display: block;
+            width: 158px;
+            height: 37px;
+            color: #747373;
+            text-decoration: none;
+        }
+
+        .subNavRight li a:hover {
+            color: #DA3243;
+            background-color: #EFEAEA;
+        }
+
+        .recommend {
+            width: 158px;
+            background-color: #FCF7F7;
+            border-right: 1px solid #EFEAEA;
+            border-bottom: 1px solid #EFEAEA;
+            padding-bottom: 20px;
+        }
+
+        .recTitle {
+            display: block;
+            width: 120px;
+            height: 22px;
+            line-height: 22px;
+            text-indent: 33px;
+            background-color: #E63547;
+            margin: 10px 0 0 18px;
+        }
+
+        .recommend li {
+            height: 22px;
+        }
+
+        .recommend li a {
+            display: inline;
+        }
+
+        .recommend li a:hover {
+            color: #333333;
+            background-color: #FCF7F7;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            //topNav鼠标悬停
+            var nav = document.getElementsByClassName('nav')[0];
+            var subNav = document.getElementsByClassName('subNav')[0];
+            var arrow = document.getElementsByTagName('span')[0];
+            nav.addEventListener('mouseover', function () {
+                subNav.style.display = 'block';
+                arrow.innerHTML = '▲';
+            });
+
+            nav.addEventListener('mouseout', function () {
+                subNav.style.display = 'none';
+                arrow.innerHTML = '▼';
+            });
+
+            //subNavList鼠标悬停
+            var subNavLists = document.getElementsByClassName('subNavList');
+            for (var i=0; i<subNavLists.length; i++) {
+                subNavLists[i].addEventListener('mouseover', function () {
+                    this.className = 'subNavListHover';
+                    var subNavRight = this.getElementsByClassName('subNavRightHide')[0];
+                    var subNavTitle = this.getElementsByClassName('subNavTitle')[0];
+                    subNavRight.className = 'subNavRight';
+                    if (subNavTitle.innerText==='应用市场') {
+                        subNavRight.style.top = '323px';
+                    }
+                });
+
+                subNavLists[i].addEventListener('mouseout', function () {
+                    this.className = 'subNavList';
+                    var subNavRight = this.getElementsByClassName('subNavRight')[0];
+                    subNavRight.className = 'subNavRightHide';
+                });
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>华为商城导航菜单</h1>
+<div class="nav">
+    <div class="topNav">
+        <h2>全部商品</h2>
+        <span>▼</span>
+    </div>
+    <ul class="subNav">
+        <li class="subNavList">
+            <h3 class="subNavTitle"><a href="#">手机</a></h3>
+            <span class="subNavLink"><a href="#">荣耀</a> <a href="#">畅玩</a> <a href="#">华为</a> <a href="#">Mate/P系列</a></span>
+            <ul class="subNavRightHide">
+                <li><a href="#">荣耀</a></li>
+                <li><a href="#">畅玩</a></li>
+                <li><a href="#">华为 Mate/P系列</a></li>
+                <li><a href="#">G/Y系列</a></li>
+                <li><a href="#">运营商合约</a></li>
+                <li>
+                    <ul class="recommend">
+                        <li><span class="recTitle">推荐商品</span></li>
+                        <li><a href="#">以旧换新</a></li>
+                        <li><a href="#">合约机11.11活动</a></li>
+                        <li><a href="#">荣耀畅玩4X 套餐版</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="subNavList">
+            <h3 class="subNavTitle"><a href="#">平板 & 穿戴</a></h3>
+            <span class="subNavLink"><a href="#">平板电脑</a> <a href="#">手环</a> <a href="#">手表</a></span>
+            <ul class="subNavRightHide">
+                <li><a href="#">平板电脑</a></li>
+                <li><a href="#">手环</a></li>
+                <li><a href="#">手表</a></li>
+                <li>
+                    <ul class="recommend">
+                        <li><span class="recTitle">推荐商品</span></li>
+                        <li><a href="#">荣耀平板</a></li>
+                        <li><a href="#">10.1英寸平板</a></li>
+                        <li><a href="#">荣耀手环zero</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="subNavList">
+            <h3 class="subNavTitle"><a href="#">智能家居</a></h3>
+            <span class="subNavLink"><a href="#">电力猫</a> <a href="#">路由器</a> <a href="#">电视盒子</a></span>
+            <ul class="subNavRightHide">
+                <li><a href="#">电力猫</a></li>
+                <li><a href="#">路由器</a></li>
+                <li><a href="#">电视盒子</a></li>
+                <li><a href="#">随行wifi</a></li>
+                <li>
+                    <ul class="recommend">
+                        <li><span class="recTitle">推荐商品</span></li>
+                        <li><a href="#">荣耀路由</a></li>
+                        <li><a href="#">荣耀盒子</a></li>
+                        <li><a href="#">荣耀电力猫</a></li>
+                        <li><a href="#">华为随行WiFi plus</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="subNavList">
+            <h3 class="subNavTitle"><a href="#">必备配件</a></h3>
+            <span class="subNavLink"><a href="#">保护壳</a> <a href="#">保护套</a> <a href="#">贴膜</a></span>
+            <ul class="subNavRightHide">
+                <li><a href="#">保护壳</a></li>
+                <li><a href="#">保护套</a></li>
+                <li><a href="#">贴膜</a></li>
+                <li><a href="#">蓝牙耳机</a></li>
+                <li><a href="#">入耳式耳机</a></li>
+                <li><a href="#">头戴耳机</a></li>
+                <li>
+                    <ul class="recommend">
+                        <li><span class="recTitle">推荐商品</span></li>
+                        <li><a href="#">华为 降噪耳机</a></li>
+                        <li><a href="#">Mate7 翻盖保护套</a></li>
+                        <li><a href="#">耐翔 蜂巢 蓝牙耳机</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="subNavList">
+            <h3 class="subNavTitle"><a href="#">基础配件</a></h3>
+            <span class="subNavLink"><a href="#">音箱</a> <a href="#">移动电源</a> <a href="#">电池/充电器</a></span>
+            <ul class="subNavRightHide">
+                <li><a href="#">音箱</a></li>
+                <li><a href="#">移动电源</a></li>
+                <li><a href="#">电池/充电器</a></li>
+                <li><a href="#">卡托/线材</a></li>
+                <li><a href="#">U盘/存储卡</a></li>
+                <li><a href="#">盒子遥控器</a></li>
+                <li>
+                    <ul class="recommend">
+                        <li><span class="recTitle">推荐商品</span></li>
+                        <li><a href="#">小天鹅蓝牙音箱</a></li>
+                        <li><a href="#">4800mAH 移动电源</a></li>
+                        <li><a href="#">MATE7 充电底座</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="subNavList">
+            <h3 class="subNavTitle"><a href="#">潮流配件</a></h3>
+            <span class="subNavLink"><a href="#">支架</a> <a href="#">自拍杆/器</a> <a href="#">智能开关/插座</a></span>
+            <ul class="subNavRightHide">
+                <li><a href="#">支架</a></li>
+                <li><a href="#">自拍杆/器</a></li>
+                <li><a href="#">智能开关/插座</a></li>
+                <li><a href="#">摄像机/镜头</a></li>
+                <li><a href="#">健康家居</a></li>
+                <li><a href="#">车载电器</a></li>
+                <li><a href="#">智能灯饰</a></li>
+                <li><a href="#">钥匙扣</a></li>
+                <li><a href="#">创意配件</a></li>
+                <li>
+                    <ul class="recommend">
+                        <li><span class="recTitle">推荐商品</span></li>
+                        <li><a href="#">RyFit 体质分析仪</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="subNavList">
+            <h3 class="subNavTitle"><a href="#">应用市场</a></h3>
+            <span class="subNavLink"><a href="#">手机游戏</a> <a href="#">手机应用</a></span>
+            <ul class="subNavRightHide">
+                <li><a href="#">手机游戏</a></li>
+                <li><a href="#">手机应用</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
