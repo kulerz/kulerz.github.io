@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>验证手机号</title>
+<meta charset="utf-8"/>
+<style type="text/css">
+body {
+    background: gainsboro;
+}
+
+.showNum {
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    margin: 3px 0 0 111px;
+    font-size: 18px;
+    color: white;
+    background-color: silver;
+    border: 1px solid gray;
+    box-shadow:2px 2px 3px #aaaaaa;
+}
+
+input:focus {
+    outline: none;
+}
+</style>
+<script type="text/javascript">
+    //手机号验证，首位1，第2位[34578],后9位[0-9]
+    function verifyPhone() {
+        var phone = document.getElementById('phone'); 
+        var hint = document.getElementById('hint');
+        var showNum = document.getElementById('showNum');
+
+        //验证手机号
+        if (phone.value.length===1 && !phone.value.match(/^1\d*/) || phone.value.length>1 && !phone.value.match(/^1[34578]\d*/) || phone.value.length>11) {
+            hint.innerHTML = '<span style="color:red;">请输入正确的手机号码</span>';
+            phone.style.borderColor = 'red';              
+        } else if (phone.value.match(/^1[34578]\d{9}/)) {
+            hint.innerHTML = '<span style="color:green;">✔</span>';
+            phone.style.borderColor = 'green';            
+        } else {
+            hint.innerHTML = '';
+            phone.style.borderColor = '';
+        }
+
+        //下方提示手机号
+        showNum.className = 'showNum';
+        var temp = phone.value;
+        if (temp.length>3 && temp.length<=7) {
+            temp = temp.substr(0,3)+'-'+temp.substr(3)
+        } else if (temp.length>7 && temp.length<12) {
+            temp = temp.substr(0,3)+'-'+temp.substr(3,4)+'-'+temp.substr(7)
+        }
+        showNum.innerHTML = temp.substr(0,13);
+    }
+
+</script>
+</head>
+
+<body>
+    <b>验证用户输入的手机号，并实时提示</b><br/><br/>
+    请输入手机号：<input type="text" id="phone" name="phone" onkeyup="verifyPhone()" />
+    <span id="hint"></span><br>
+    <div id="showNum"></div>
+</body>
+</html>
