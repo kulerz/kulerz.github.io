@@ -13,7 +13,8 @@ body {
     function verifyInput() {
         var userInput = document.getElementById('userInput').value;
         var hint = document.getElementById('hint');
-        if (userInput.length===0) {
+        //\s查找空白字符
+        if (userInput.match(/^\s*$/)) {
             hint.innerHTML = '<span style="color:red;">未输入字符</span>';
         } else {
             hint.innerHTML = '<span style="color:green;">已输入字符</span>';
