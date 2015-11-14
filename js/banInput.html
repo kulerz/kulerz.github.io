@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>禁止输入</title>
+<meta charset="utf-8"/>
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+
+    function banInput(i) {
+        var userInput;
+        if (i===1) {
+            userInput = document.getElementById('userInput1');
+            userInput.disabled= 'disabled';
+            userInput.value= '禁止输入';            
+        }
+
+        if (i===2) {
+            userInput = document.getElementById('userInput2');
+            userInput.maxLength= '0';         
+        }
+
+        if (i===3) {
+            userInput = document.getElementById('userInput3');
+            userInput.readOnly= 'readonly';
+            userInput.value= '禁止输入';            
+        }
+
+        if (i===4) {
+            userInput = document.getElementById('userInput4');
+            userInput.value= '';            
+        }
+    }
+    
+    window.onload = function () {
+    }
+</script>
+</head>
+
+<body>
+    <b>设置disabled禁止输入:  </b>
+    <input type="text" id="userInput1" name="userInput" onfocus="banInput(1)" /><br/>
+    <b>设置maxlength禁止输入: </b>
+    <input type="text" id="userInput2" name="userInput" onfocus="banInput(2)" /><br/>
+    <b>设置readonly禁止输入:  </b>
+    <input type="text" id="userInput3" name="userInput" onfocus="banInput(3)" /><br/>
+    <b>替换value值禁止输入:  </b>
+    <input type="text" id="userInput4" name="userInput" onkeyup="banInput(4)" /><br/>
+</body>
+</html>
