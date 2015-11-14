@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>去除输入的空格</title>
+<meta charset="utf-8"/>
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+
+    function removeSpace() {
+        var userInput = document.getElementById('userInput');
+        //寻找非空字符，转为字符串并替换逗号
+        userInput.value = userInput.value.match(/\S/g).toString().replace(/,/g,'');
+    }
+
+</script>
+</head>
+
+<body>
+    <b>去除输入的空格</b>
+    <input type="text" id="userInput" name="userInput" value="   去除   空 格   " />
+    <input type="button" value="点击去除" onclick="removeSpace()" />
+</body>
+</html>
