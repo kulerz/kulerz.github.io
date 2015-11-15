@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>只能输入数字</title>
+<meta charset="utf-8"/>
+<style type="text/css">
+body {
+    background: gainsboro;
+}
+</style>
+<script type="text/javascript">
+
+    function numOnly() {
+        var userInput = document.getElementById('userInput');
+        //替换所有非数字字符
+        userInput.value = userInput.value.replace(/\D/g,'');
+    }
+
+</script>
+</head>
+
+<body>
+    <b>只能输入数字</b>
+    <input type="text" id="userInput" name="userInput"onkeyup="numOnly()" />
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>只能输入中文</title>
+<meta charset="utf-8"/>
+<style type="text/css">
+body {
+    background: gainsboro;
+}
+</style>
+<script type="text/javascript">
+
+    function cnOnly() {
+        var userInput = document.getElementById('userInput');
+        //替换所有数字和字母
+        userInput.value = userInput.value.replace(/\d|\w/g,'');
+    }
+
+</script>
+</head>
+
+<body>
+    <b>只能输入中文</b>
+    <input type="text" id="userInput" name="userInput"onkeyup="cnOnly()" />
+</body>
+</html>
