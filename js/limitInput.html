@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>限制字符串长度</title>
+<meta charset="utf-8"/>
+<style type="text/css">
+body {
+    background: gainsboro;
+}
+</style>
+<script type="text/javascript">
+
+    function limitInput() {
+        var userInput = document.getElementById('userInput');
+        var hint = document.getElementById('hint');
+        userInput.maxLength = '10';
+        var Left = userInput.maxLength-userInput.value.length
+        if (Left>=0) {
+            hint.innerHTML = '还可以输入'+Left+'个字符';                
+        }
+    }
+</script>
+</head>
+
+<body>
+    <b>限制字符串长度(不区分中英文)</b>
+    <input type="text" id="userInput" name="userInput" onkeyup="limitInput()" />
+    <span id="hint">可以输入10个字符</span>
+</body>
+</html>
