@@ -14,7 +14,7 @@ body {
         var userInput = document.getElementById('userInput');
         var hint = document.getElementById('hint');
         userInput.maxLength = '10';
-        var Left = userInput.maxLength-userInput.value.length
+        var Left = userInput.maxLength-userInput.value.length;
         if (Left>=0) {
             hint.innerHTML = '还可以输入'+Left+'个字符';                
         }
