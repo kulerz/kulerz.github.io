@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>限制字符串长度2</title>
+<meta charset="utf-8"/>
+<style type="text/css">
+body {
+    background: gainsboro;
+}
+</style>
+<script type="text/javascript">
+
+    function limitInput() {
+        var userInput = document.getElementById('userInput');
+        var hint = document.getElementById('hint');
+        var enWords = 0, cnWords = 0, en = 0, cn = 0;
+        userInput.maxLength = '10';
+
+        //encodeURI将汉字编码长度为9，英文和数字长度不变。
+        for (var k=0; k<userInput.value.length; k++) {
+            if (encodeURI(userInput.value[k]).length===1) {
+                enWords++;
+                cnWords += 0.5;
+                if ((en+cn*2)<userInput.maxLength) {
+                    en++;
+                }
+            }
+
+            if (encodeURI(userInput.value[k]).length===9) {
+                enWords += 2;
+                cnWords++;
+                if ((en+cn*2)<userInput.maxLength) {
+                    cn++;
+                }
+            }
+        }
+
+        //统计剩余可输入中英文字符
+        var enLeft = userInput.maxLength-enWords;
+        var cnLeft = Math.floor(userInput.maxLength/2-cnWords);
+        if (enLeft>=0 && cnLeft>=0) {
+            hint.innerHTML = '还可以输入'+enLeft+'个英文字符，'+cnLeft+'个中文字符。';
+        }
+
+        //替换超出的字符
+        if ((en+cn*2)>userInput.maxLength) {
+            userInput.value = userInput.value.substr(0,(en+cn-1));
+        } else {
+            userInput.value = userInput.value.substr(0,(en+cn));
+        }
+    }
+
+</script>
+</head>
+
+<body>
+    <b>限制字符串长度(区分中英文)</b>
+    <input type="text" id="userInput" name="userInput" onkeyup="limitInput()" />
+    <span id="hint">可以输入10个英文字符或5个中文字符，1个中文字符等同于2个英文字符。</span>
+</body>
+</html>
