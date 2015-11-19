@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>翻页效果</title>
+    <style type="text/css">
+        body, div, button {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: gainsboro;
+        }
+
+        .pages {
+            width: 1000px;
+            height: 563px;
+            margin: 8% auto;
+            position: relative;
+            perspective: 1500px;
+            perspective-origin: 50% 50%;
+            transform-style: preserve-3d;
+            -webkit-perspective: 1500px;
+            -webkit-perspective-origin: 50% 50%;
+            -webkit-transform-style: preserve-3d;
+        }
+
+        div {
+            position: absolute;
+        }
+        
+        .hint {
+            position: absolute;
+            top: -50px;
+            left: 300px;
+        }
+
+        button {
+            position: absolute;
+            width: 25px;
+            height: 83px;
+            top: 240px;
+        }
+
+        #leftButton {
+            left: -40px;
+        }
+
+        #rightButton {
+            left: 1010px;
+        }
+
+        .leftPage {
+            width: 500px;
+            height: 563px;
+            transform-origin: right;
+            transform: rotateY(90deg);
+            -webkit-transform-origin: right;
+            -webkit-transform: rotateY(90deg);
+        }
+
+        .rightPage {
+            width: 500px;
+            height: 563px;
+            left: 500px;
+            transform-origin: left;
+            -webkit-transform-origin: left;
+        }
+
+        #rightPage1 {
+            background: url("./img/1.jpg") -500px;
+        }
+
+        #rightPage2 {
+            background: url("./img/2.jpg") -500px;
+        }
+
+        #rightPage3 {
+            background: url("./img/3.jpg") -500px;
+        }
+
+        #rightPage4 {
+            background: url("./img/4.jpg") -500px;
+        }
+
+        #rightPage5 {
+            background: url("./img/5.jpg") -500px;
+        }
+
+        #rightPage6 {
+            background: url("./img/6.jpg") -500px;
+        }
+
+        #rightPage7 {
+            background: url("./img/7.jpg") -500px;
+        }
+
+        #rightPage8 {
+            background: url("./img/8.jpg") -500px;
+        }
+
+        #rightPage9 {
+            background: url("./img/9.jpg") -500px;
+        }
+
+        #rightPage10 {
+            background: url("./img/10.jpg") -500px;
+        }
+
+        #rightPage11 {
+            background: url("./img/11.jpg") -500px;
+        }
+
+        #rightPage12 {
+            background: url("./img/12.jpg") -500px;
+        }
+        
+        #leftPage1 {
+            background: url("./img/2.jpg");
+        }
+
+        #leftPage2 {
+            background: url("./img/3.jpg");
+        }
+
+        #leftPage3 {
+            background: url("./img/4.jpg");
+        }
+
+        #leftPage4 {
+            background: url("./img/5.jpg");
+        }
+
+        #leftPage5 {
+            background: url("./img/6.jpg");
+        }
+
+        #leftPage6 {
+            background: url("./img/7.jpg");
+        }
+
+        #leftPage7 {
+            background: url("./img/8.jpg");
+        }
+
+        #leftPage8 {
+            background: url("./img/9.jpg");
+        }
+
+        #leftPage9 {
+            background: url("./img/10.jpg");
+        }
+
+        #leftPage10 {
+            background: url("./img/11.jpg");
+        }
+
+        #leftPage11 {
+            background: url("./img/12.jpg");
+        }
+
+        #leftPage12 {
+            background: url("./img/1.jpg");
+        }
+    </style>
+    <script type="text/javascript">
+        //当前页面
+        var currentPage =1;
+
+        //向前翻页
+        function previous () {
+            if (currentPage===1)
+                return;
+            currentPage--;
+            var rightPage = document.getElementById('rightPage'+currentPage);
+            var leftPage = document.getElementById('leftPage'+currentPage);
+            //谷歌等浏览器
+            rightPage.style.webkitTransform = 'rotateY(0deg)';
+            rightPage.style.webkitTransition = 'transform 1s 1s';
+            leftPage.style.webkitTransform = 'rotateY(90deg)';
+            leftPage.style.webkitTransition = 'transform 1s';
+            //火狐等浏览器
+            rightPage.style.transform = 'rotateY(0deg)';
+            rightPage.style.transition = 'transform 1s 1s';
+            leftPage.style.transform = 'rotateY(90deg)';
+            leftPage.style.transition = 'transform 1s';
+        }
+
+        //向后翻页
+        function next () {
+            if (currentPage===13)
+                return;
+            var rightPage = document.getElementById('rightPage'+currentPage);
+            var leftPage = document.getElementById('leftPage'+currentPage);
+            //谷歌等浏览器
+            rightPage.style.webkitTransform = 'rotateY(-90deg)';
+            rightPage.style.webkitTransition = 'transform 1s';
+            leftPage.style.webkitTransform = 'rotateY(0deg)';
+            leftPage.style.webkitTransition = 'transform 1s 1s';
+            //火狐等浏览器
+            rightPage.style.transform = 'rotateY(-90deg)';
+            rightPage.style.transition = 'transform 1s';
+            leftPage.style.transform = 'rotateY(0deg)';
+            leftPage.style.transition = 'transform 1s 1s';
+            currentPage++;
+        }
+
+        window.onload = function () {
+            //点击图片翻页
+            var leftPages = document.getElementsByClassName('leftPage');
+            var rightPages = document.getElementsByClassName('rightPage');
+            for (var i=0; i<12; i++) {
+                rightPages[i].addEventListener('click',next);
+                leftPages[i].addEventListener('click',previous);
+            }
+
+            //键盘左右键翻页
+            document.body.addEventListener('keydown',function(e){
+                if (e.keyCode===37)
+                    previous();
+                if (e.keyCode===39)
+                    next();
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="pages">
+        <div class="hint">点击两侧按钮，或点击图片，或按键盘左右键翻页。</div>
+        <button id="leftButton" onclick="previous()">向前翻页</button>
+        <button id="rightButton" onclick="next()">向后翻页</button>
+
+        <div class="rightPage" id="rightPage12"></div>
+        <div class="rightPage" id="rightPage11"></div>
+        <div class="rightPage" id="rightPage10"></div>
+        <div class="rightPage" id="rightPage9"></div>
+        <div class="rightPage" id="rightPage8"></div>
+        <div class="rightPage" id="rightPage7"></div>
+        <div class="rightPage" id="rightPage6"></div>
+        <div class="rightPage" id="rightPage5"></div>
+        <div class="rightPage" id="rightPage4"></div>
+        <div class="rightPage" id="rightPage3"></div>
+        <div class="rightPage" id="rightPage2"></div>
+        <div class="rightPage" id="rightPage1"></div>
+
+        <div class="leftPage" id="leftPage1"></div>
+        <div class="leftPage" id="leftPage2"></div>
+        <div class="leftPage" id="leftPage3"></div>
+        <div class="leftPage" id="leftPage4"></div>
+        <div class="leftPage" id="leftPage5"></div>
+        <div class="leftPage" id="leftPage6"></div>
+        <div class="leftPage" id="leftPage7"></div>
+        <div class="leftPage" id="leftPage8"></div>
+        <div class="leftPage" id="leftPage9"></div>
+        <div class="leftPage" id="leftPage10"></div>
+        <div class="leftPage" id="leftPage11"></div>
+        <div class="leftPage" id="leftPage12"></div>
+    </div>
+</body>
+</html>
