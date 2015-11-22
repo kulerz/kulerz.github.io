@@ -3,48 +3,7 @@
 <head>
     <title>kulerz的前端作品展示</title>
     <meta charset="UTF-8">
-    <style type="text/css">
-        body {
-            margin: 0;
-            padding: 0;
-            background: gainsboro;
-            font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
-        }
-
-        .list {
-            width: 300px;
-            height: 500px;
-            margin: 0 auto;
-        }
-
-        .list li {
-            margin-top: 10px;
-        }
-
-        h3 {
-            text-align: center;
-            border: 1px solid gray;
-            background-color: #f0f0f0;
-        }
-
-        a:link {
-            text-decoration: none;
-            color: black;
-        }
-
-        a:visited {
-            color: black;
-        }
-
-        a:hover {
-            color: deepskyblue;
-            font-size: 17px;
-        }
-
-        a:active {
-            color: blue;
-        }
-    </style>
+    <link type="text/css" rel="stylesheet" href="./css/basic.css" />
     <script type="text/javascript">
 
         function changeColor() {
@@ -65,7 +24,7 @@
                 h3tag[i].addEventListener('mouseover',changeColor);
                 h3tag[i].addEventListener('mouseout',changeColor);
             }
-            console.log('您好，首先感谢您百忙之中抽空查看我的简历，如果您觉得我适合您公司的职位，可以加我聊一聊，我的QQ：570703221，烦请注明来自github.io');
+            console.log('您好，首先感谢您百忙之中抽空查看我的简历，如果您觉得我适合您公司的职位，可以加我聊一聊，我的QQ：570703221，烦请注明来自GitHub.io');
         };
 
     </script>
@@ -74,44 +33,15 @@
     <div class="list">
         <h3>javaScript</h3>
         <ul>
-            <li>
-                <b>JS游戏</b>
-                <ol>
-                    <li><a href="./js/mineSweep.html" target="_blank">扫雷游戏 mineSweep</a></li>
-                </ol>
-            </li>
-            <li>
-                <b>JS表单常用代码</b>
-                <ol>
-                    <li><a href="./js/verifyInput.html" target="_blank">验证用户是否输入</a></li>
-                    <li><a href="./js/verifyPhone.html" target="_blank">验证手机号</a></li>
-                    <li><a href="./js/removeSpace.html" target="_blank">去除输入的空格</a></li>
-                    <li><a href="./js/banInput.html" target="_blank">禁止输入</a></li>
-                    <li><a href="./js/numOnly.html" target="_blank">只能输入数字</a></li>
-                    <li><a href="./js/cnOnly.html" target="_blank">只能输入中文</a></li>
-                    <li><a href="./js/limitInput.html" target="_blank">限制字符串长度</a></li>
-                    <li><a href="./js/limitInput2.html" target="_blank">限制字符串长度2</a></li>
-                </ol>
-            </li>
+            <li><a href="./works/mineSweep.html" target="_blank">扫雷游戏 mineSweep</a></li>
         </ul>
-        <h3>HTML&CSS</h3>
+        <h3>MyDesign</h3>
         <ul>
-            <li>
-                <b>导航菜单</b>
-                <ol>
-                    <li><a href="./navBar/navBar01.html" target="_blank">华为商城导航菜单</a></li>
-                    <li><a href="./navBar/navBar02.html" target="_blank">京东导航菜单</a></li>
-                </ol>
-            </li>
+            <li><a href="./works/flip.html" target="_blank">CSS3&JS实现翻页效果</a></li>
         </ul>
         <h3>OTHER</h3>
         <ul>
-            <li>
-                <b>MyDesign</b>
-                <ol>
-                    <li><a href="./other/flip.html" target="_blank">CSS3&JS实现翻页效果</a></li>
-                </ol>
-            </li>
+            <li><a href="./list/index.html" target="_blank">常用代码列表</a></li>
         </ul>
     </div>
 </body>

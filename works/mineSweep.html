@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>扫雷游戏 mineSweep by kulerz</title>
+    <style type="text/css">
+        body {
+            background: gainsboro;
+            text-align: center;
+        }
+
+        table {
+            vertical-align: middle;
+            empty-cells: show;
+            border-spacing: 0;
+            margin: 0 auto;
+        }
+
+        td {
+            width: 30px;
+            height: 30px;
+            border: 2px outset ghostwhite;
+        }
+
+        #button {
+            width: 500px;
+            margin: 10px auto;
+        }
+
+        input {
+            width: 80px;
+            height: 30px;
+        }
+    </style>
+    <script type="text/javascript">
+        //扫雷属性
+        function MineSweep(totalBox, totalMine) {
+            this.totalMine = totalMine;
+            this.lineBox = Math.sqrt(totalBox);
+            this.allBox = [];
+        }
+
+        //扫雷方法
+        MineSweep.prototype = {
+            //创建游戏
+            createGame: function () {
+                clearInterval(this.t);
+                var game = document.getElementsByTagName('table')[0];
+                var prompt = document.getElementById('prompt');
+                game.innerHTML = '';
+                prompt.innerHTML = this.playerName+'：随便点几下，也许有好运气。';
+                for (var i = 0; i < this.lineBox; i++) {
+                    this.allBox[i] = document.createElement('tr');
+                    game.appendChild(this.allBox[i]);
+                    for (var j = 0; j < this.lineBox; j++) {
+                        this.allBox[i][j] = document.createElement('td');
+                        this.allBox[i].appendChild(this.allBox[i][j]);
+                        this.allBox[i][j].isMine = false;
+                        this.allBox[i][j].isMarked = false;
+                        this.allBox[i][j].isSweep = false;
+                        this.allBox[i][j].aroundMine = 0;
+                        this.allBox[i][j].onmousedown = this.sweep;
+                        this.allBox[i][j].onmouseup = this.check;
+                        this.allBox[i][j].getSweepRelated = this.sweepRelated;
+                        this.allBox[i][j].getAllBox = this.allBox;
+                        this.allBox[i][j].getLineBox = this.lineBox;
+                        this.allBox[i][j].getTotalMine = this.totalMine;
+                        this.allBox[i][j].playerName = this.playerName;
+                    }
+                }
+
+                //开始计时
+                var time = document.getElementById('time');
+                MineSweep.prototype.sec = 0;
+                function playTime() {
+                    MineSweep.prototype.sec++;
+                    time.innerHTML = '游戏时间：'+MineSweep.prototype.sec+'秒';
+                }
+
+                MineSweep.prototype.t = setInterval(playTime, 1000);
+            },
+
+            //创建地雷
+            createMine: function () {
+                var newMine = 0;
+                for (var i = 0; i < this.totalMine * 2; i++) {
+                    if (newMine === this.totalMine) {
+                        return;
+                    }
+                    var j = this.getRandom(0, this.lineBox - 1);
+                    var k = this.getRandom(0, this.lineBox - 1);
+                    if (!this.allBox[j][k].isMine) {
+                        this.allBox[j][k].isMine = true;
+                        newMine++;
+                    }
+                }
+            },
+
+            //获取周围地雷
+            countAroundMine: function () {
+                for (var i = 0; i < this.lineBox; i++) {
+                    for (var j = 0; j < this.lineBox; j++) {
+                        var arr = [];
+                        if (!this.allBox[i][j].isMine) {
+                            if (j-1 >= 0) {
+                                arr.push(this.allBox[i][j-1]);
+                            }
+                            if (j+1 < this.lineBox) {
+                                arr.push(this.allBox[i][j+1]);
+                            }
+                            if (i-1 >= 0) {
+                                arr.push(this.allBox[i-1][j]);
+                                if (j-1 >= 0) {
+                                    arr.push(this.allBox[i-1][j-1]);
+                                }
+                                if (j+1 < this.lineBox) {
+                                    arr.push(this.allBox[i-1][j+1]);
+                                }
+                            }
+                            if (i+1 < this.lineBox) {
+                                arr.push(this.allBox[i+1][j]);
+                                if (j-1 >= 0) {
+                                    arr.push(this.allBox[i+1][j-1]);
+                                }
+                                if (j+1 < this.lineBox) {
+                                    arr.push(this.allBox[i+1][j+1]);
+                                }
+                            }
+                        }
+                        for (var k = 0; k < arr.length; k++) {
+                            if (arr[k].isMine) {
+                                this.allBox[i][j].aroundMine++;
+                            }
+                        }
+                    }
+                }
+            },
+
+            //点击清除地雷
+            sweep: function (e) {
+                if (e.buttons === 1) {
+                    this.style.borderStyle = 'inset';
+                    this.style.backgroundColor = 'ghostwhite';
+                    this.isSweep = true;
+                    this.onmousedown = null;
+                    if (this.isMine) {
+                        this.innerHTML = '<span style="color:red">۞</span>';
+                        for (var k = 0; k < this.getLineBox; k++) {
+                            for (var l = 0; l < this.getLineBox; l++) {
+                                this.getAllBox[k][l].style.borderStyle = 'inset';
+                                this.getAllBox[k][l].style.backgroundColor = 'ghostwhite';
+                                this.getAllBox[k][l].isSweep = true;
+                                this.getAllBox[k][l].onmousedown = null;
+                                this.getAllBox[k][l].onmouseup = null;
+                                if (this.getAllBox[k][l].isMine && this.getAllBox[k][l]!==this) {
+                                    this.getAllBox[k][l].innerHTML = '۞';
+                                }
+                                if (this.getAllBox[k][l].aroundMine > 0) {
+                                    this.getAllBox[k][l].innerHTML = this.getAllBox[k][l].aroundMine;
+                                }
+                            }
+                        }
+                        var prompt = document.getElementById('prompt');
+                        prompt.innerHTML = this.playerName+'：不好，踩中地雷了，点击上方按钮重新开始。';
+                        clearInterval(MineSweep.prototype.t);
+                    } else {
+                        if (this.aroundMine > 0) {
+                            this.style.borderStyle = 'inset';
+                            this.style.backgroundColor = 'ghostwhite';
+                            this.innerHTML = this.aroundMine;
+                            this.isSweep = true;
+                        }
+                        if (this.aroundMine === 0) {
+                            this.innerHTML = '';
+                            var i = this.parentNode.rowIndex;
+                            var j = this.cellIndex;
+                            var arr = this.getSweepRelated(i, j);
+                            var arr2 = [];
+                            var arr3 = [];
+                            function sweepAllSafe(arr) {
+                                for (var k = 0; k < arr.length; k++) {
+                                    i = arr[k].parentNode.rowIndex;
+                                    j = arr[k].cellIndex;
+                                    arr2.push(arr[k].getSweepRelated(i, j));
+                                }
+                                for (var m = 0; m < arr2.length; m++) {
+                                    for (var n = 0; n < arr2[m].length; n++) {
+                                        if (arr3.indexOf(arr2[m][n]) === -1) {
+                                            arr3.push(arr2[m][n]);
+                                        }
+                                    }
+                                }
+                            }
+                            sweepAllSafe(arr);
+                            for (k = 0; k < this.getLineBox; k++) {
+                                sweepAllSafe(arr3);
+                            }
+                        }
+                    }
+                }
+
+                //标记
+                if (e.buttons === 2) {
+                    if (this.isSweep) {
+                        return;
+                    }
+                    if (this.isMarked) {
+                        this.innerHTML = '';
+                        this.isMarked = false;
+                    } else {
+                        this.innerHTML = '<span style="color:red">➹</span>';
+                        this.isMarked = true;
+                    }
+                }
+            },
+
+            //清除周围安全格子
+            sweepRelated: function (i, j) {
+                var arr = [];
+                var arr2 = [];
+                if (j-1 >= 0) {
+                        arr.push(this.getAllBox[i][j-1]);
+                    }
+                    if (j+1 < this.getLineBox) {
+                        arr.push(this.getAllBox[i][j+1]);
+                    }
+                    if (i-1 >= 0) {
+                        arr.push(this.getAllBox[i-1][j]);
+                        if (j-1 >= 0) {
+                            arr.push(this.getAllBox[i-1][j-1]);
+                        }
+                        if (j+1 < this.getLineBox) {
+                            arr.push(this.getAllBox[i-1][j+1]);
+                        }
+                    }
+                    if (i+1 < this.getLineBox) {
+                        arr.push(this.getAllBox[i+1][j]);
+                        if (j-1 >= 0) {
+                            arr.push(this.getAllBox[i+1][j-1]);
+                        }
+                        if (j+1 < this.getLineBox) {
+                            arr.push(this.getAllBox[i+1][j+1]);
+                        }
+                }
+                for ( var k = 0; k < arr.length; k++) {
+                    if (!arr[k].isMarked && !arr[k].isSweep) {
+                        arr[k].style.borderStyle = 'inset';
+                        arr[k].style.backgroundColor = 'ghostwhite';
+                        arr[k].isSweep = true;
+                        arr[k].onmousedown = null;
+                        if (arr[k].aroundMine > 0) {
+                            arr[k].innerHTML = arr[k].aroundMine;
+                        }
+                    }
+                }
+                for (k = 0; k < arr.length; k++) {
+                    if (arr[k].aroundMine === 0) {
+                        arr2.push(arr[k]);
+                    }
+                }
+                return arr2;
+            },
+
+            //检查游戏状态
+            check: function () {
+                var markedMine = 0;
+                var progress = 0;
+                for (var i = 0; i < this.getLineBox; i++) {
+                    for (var j = 0; j < this.getLineBox; j++) {
+                        if (this.getAllBox[i][j].isMine && this.getAllBox[i][j].isMarked) {
+                            markedMine++;
+                        }
+                        if (!this.getAllBox[i][j].isMine && this.getAllBox[i][j].isSweep) {
+                            progress++;
+                        }
+                    }
+                }
+                if (markedMine === this.getTotalMine && progress === (this.getLineBox * this.getLineBox - this.getTotalMine)) {
+                    for (var k = 0; k < this.getLineBox; k++) {
+                        for (var l = 0; l < this.getLineBox; l++) {
+                            this.getAllBox[k][l].style.borderStyle = 'inset';
+                            this.getAllBox[k][l].style.backgroundColor = 'ghostwhite';
+                            this.getAllBox[k][l].isSweep = true;
+                            this.getAllBox[k][l].onmousedown = null;
+                            this.getAllBox[k][l].onmouseup = null;
+                            if (this.getAllBox[k][l].isMarked) {
+                                this.getAllBox[k][l].innerHTML = '<span style="color:green">➹</span>';
+                            }
+                            if (this.getAllBox[k][l].aroundMine > 0) {
+                                this.getAllBox[k][l].innerHTML = this.getAllBox[k][l].aroundMine;
+                            }
+                        }
+                    }
+                    var prompt = document.getElementById('prompt');
+                    var level = '初级';
+                    if (this.getTotalMine === 40) {
+                        level = '中级';
+                    }
+                    if (this.getTotalMine === 99) {
+                        level = '高级';
+                    }
+                    if (this.getTotalMine === 500) {
+                        level = '疯狂';
+                    }
+                    prompt.innerHTML = this.playerName+'：'+level+'扫雷成功，完成时间：'+MineSweep.prototype.sec+'秒';
+                    clearInterval(MineSweep.prototype.t);
+                }
+            },
+
+            //随机数
+            getRandom: function (min, max) {
+                return Math.round(Math.random() * (max - min)) + min;
+            }
+        };
+
+        function createMineSweep(totalBox, totalMine) {
+            var mineSweep = new MineSweep(totalBox, totalMine);
+            mineSweep.createGame();
+            mineSweep.createMine();
+            mineSweep.countAroundMine();
+        }
+
+        window.onload = function () {
+            //游戏区域禁用右键和选择
+            document.getElementsByTagName('table')[0].oncontextmenu = function () {
+                return false;
+            };
+            document.getElementsByTagName('table')[0].onselectstart = function () {
+                return false;
+            };
+
+            //分配玩家名
+            MineSweep.prototype.playerName = 'player'+MineSweep.prototype.getRandom(1,99999);
+
+            //初始化游戏
+            createMineSweep(81,10);
+        }
+    </script>
+</head>
+<body>
+<h2>扫雷游戏 mineSweep by kulerz</h2>
+<p>游戏规则:左键单击打开格子，右键标记地雷，打开所有安全格子标记所有地雷后成功，祝你好运！</p>
+<div id="button">
+    <input type="button" value="初级" onclick="createMineSweep(81,10)">
+    <input type="button" value="中级" onclick="createMineSweep(256,40)">
+    <input type="button" value="高级" onclick="createMineSweep(512,99)">
+    <input type="button" value="疯狂模式" onclick="createMineSweep(2500,400)">
+</div>
+    <p id="time">游戏时间：0秒</p>
+    <p id="prompt"></p>
+<table></table>
+</body>
+</html>

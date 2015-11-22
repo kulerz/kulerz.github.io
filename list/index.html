@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>常用代码列表</title>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="../css/basic.css" />
+    <script type="text/javascript">
+
+        function changeColor() {
+            if (this.style.backgroundColor!=='silver') {
+                this.style.backgroundColor = 'silver';
+                this.style.color = 'white';
+                this.style.borderColor = 'white';
+            } else {
+                this.style.backgroundColor = '#f0f0f0';
+                this.style.color = 'black';
+                this.style.borderColor = 'gray';
+            }
+        }
+
+        window.onload = function () {
+            var h3tag = document.getElementsByTagName('h3');
+            for (var i=0; i<h3tag.length; i++) {
+                h3tag[i].addEventListener('mouseover',changeColor);
+                h3tag[i].addEventListener('mouseout',changeColor);
+            }
+        };
+
+    </script>
+</head>
+<body>
+    <div class="list">
+        <h3>javaScript</h3>
+        <ul>
+            <li>
+                <b>JS表单常用代码</b>
+                <ol>
+                    <li><a href="./javaScript/verifyInput.html" target="_blank">验证用户是否输入</a></li>
+                    <li><a href="./javaScript/verifyPhone.html" target="_blank">验证手机号</a></li>
+                    <li><a href="./javaScript/removeSpace.html" target="_blank">去除输入的空格</a></li>
+                    <li><a href="./javaScript/banInput.html" target="_blank">禁止输入</a></li>
+                    <li><a href="./javaScript/numOnly.html" target="_blank">只能输入数字</a></li>
+                    <li><a href="./javaScript/cnOnly.html" target="_blank">只能输入中文</a></li>
+                    <li><a href="./javaScript/limitInput.html" target="_blank">限制字符串长度</a></li>
+                    <li><a href="./javaScript/limitInput2.html" target="_blank">限制字符串长度2</a></li>
+                </ol>
+            </li>
+        </ul>
+        <h3>HTML&CSS</h3>
+        <ul>
+            <li>
+                <b>导航菜单</b>
+                <ol>
+                    <li><a href="./navBar/navBar01.html" target="_blank">华为商城导航菜单</a></li>
+                    <li><a href="./navBar/navBar02.html" target="_blank">京东导航菜单</a></li>
+                </ol>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
