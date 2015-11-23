@@ -166,20 +166,23 @@
     </style>
     <script type="text/javascript">
         //当前页面
-        var currentPage =1;
+        var currentPage = 1;
 
         //向前翻页
         function previous () {
-            if (currentPage===1)
+            if (currentPage === 1) {
                 return;
+            }
             currentPage--;
-            var rightPage = document.getElementById('rightPage'+currentPage);
-            var leftPage = document.getElementById('leftPage'+currentPage);
+            var rightPage = document.getElementById('rightPage' + currentPage);
+            var leftPage = document.getElementById('leftPage' + currentPage);
+
             //谷歌等浏览器
             rightPage.style.webkitTransform = 'rotateY(0deg)';
             rightPage.style.webkitTransition = 'transform 1s 1s';
             leftPage.style.webkitTransform = 'rotateY(90deg)';
             leftPage.style.webkitTransition = 'transform 1s';
+
             //火狐等浏览器
             rightPage.style.transform = 'rotateY(0deg)';
             rightPage.style.transition = 'transform 1s 1s';
@@ -189,15 +192,18 @@
 
         //向后翻页
         function next () {
-            if (currentPage===13)
+            if (currentPage === 13) {
                 return;
-            var rightPage = document.getElementById('rightPage'+currentPage);
-            var leftPage = document.getElementById('leftPage'+currentPage);
+            }
+            var rightPage = document.getElementById('rightPage' + currentPage);
+            var leftPage = document.getElementById('leftPage' + currentPage);
+
             //谷歌等浏览器
             rightPage.style.webkitTransform = 'rotateY(-90deg)';
             rightPage.style.webkitTransition = 'transform 1s';
             leftPage.style.webkitTransform = 'rotateY(0deg)';
             leftPage.style.webkitTransition = 'transform 1s 1s';
+
             //火狐等浏览器
             rightPage.style.transform = 'rotateY(-90deg)';
             rightPage.style.transition = 'transform 1s';
@@ -210,17 +216,19 @@
             //点击图片翻页
             var leftPages = document.getElementsByClassName('leftPage');
             var rightPages = document.getElementsByClassName('rightPage');
-            for (var i=0; i<12; i++) {
-                rightPages[i].addEventListener('click',next);
-                leftPages[i].addEventListener('click',previous);
+            for (var i = 0; i < 12; i++) {
+                rightPages[i].addEventListener('click', next);
+                leftPages[i].addEventListener('click', previous);
             }
 
             //键盘左右键翻页
-            document.body.addEventListener('keydown',function(e){
-                if (e.keyCode===37)
+            document.body.addEventListener('keydown', function (e) {
+                if (e.keyCode === 37) {
                     previous();
-                if (e.keyCode===39)
+                }
+                if (e.keyCode === 39) {
                     next();
+                }
             });
         }
     </script>
