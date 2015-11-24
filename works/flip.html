@@ -67,108 +67,12 @@
             transform-origin: left;
             -webkit-transform-origin: left;
         }
-
-        #rightPage1 {
-            background: url("./img/1.jpg") -500px;
-        }
-
-        #rightPage2 {
-            background: url("./img/2.jpg") -500px;
-        }
-
-        #rightPage3 {
-            background: url("./img/3.jpg") -500px;
-        }
-
-        #rightPage4 {
-            background: url("./img/4.jpg") -500px;
-        }
-
-        #rightPage5 {
-            background: url("./img/5.jpg") -500px;
-        }
-
-        #rightPage6 {
-            background: url("./img/6.jpg") -500px;
-        }
-
-        #rightPage7 {
-            background: url("./img/7.jpg") -500px;
-        }
-
-        #rightPage8 {
-            background: url("./img/8.jpg") -500px;
-        }
-
-        #rightPage9 {
-            background: url("./img/9.jpg") -500px;
-        }
-
-        #rightPage10 {
-            background: url("./img/10.jpg") -500px;
-        }
-
-        #rightPage11 {
-            background: url("./img/11.jpg") -500px;
-        }
-
-        #rightPage12 {
-            background: url("./img/12.jpg") -500px;
-        }
-        
-        #leftPage1 {
-            background: url("./img/2.jpg");
-        }
-
-        #leftPage2 {
-            background: url("./img/3.jpg");
-        }
-
-        #leftPage3 {
-            background: url("./img/4.jpg");
-        }
-
-        #leftPage4 {
-            background: url("./img/5.jpg");
-        }
-
-        #leftPage5 {
-            background: url("./img/6.jpg");
-        }
-
-        #leftPage6 {
-            background: url("./img/7.jpg");
-        }
-
-        #leftPage7 {
-            background: url("./img/8.jpg");
-        }
-
-        #leftPage8 {
-            background: url("./img/9.jpg");
-        }
-
-        #leftPage9 {
-            background: url("./img/10.jpg");
-        }
-
-        #leftPage10 {
-            background: url("./img/11.jpg");
-        }
-
-        #leftPage11 {
-            background: url("./img/12.jpg");
-        }
-
-        #leftPage12 {
-            background: url("./img/1.jpg");
-        }
     </style>
     <script type="text/javascript">
-        //当前页面
+        // 当前页面
         var currentPage = 1;
 
-        //向前翻页
+        // 向前翻页
         function previous () {
             if (currentPage === 1) {
                 return;
@@ -177,20 +81,20 @@
             var rightPage = document.getElementById('rightPage' + currentPage);
             var leftPage = document.getElementById('leftPage' + currentPage);
 
-            //谷歌等浏览器
+            // 谷歌等浏览器
             rightPage.style.webkitTransform = 'rotateY(0deg)';
             rightPage.style.webkitTransition = 'transform 1s 1s';
             leftPage.style.webkitTransform = 'rotateY(90deg)';
             leftPage.style.webkitTransition = 'transform 1s';
 
-            //火狐等浏览器
+            // 火狐等浏览器
             rightPage.style.transform = 'rotateY(0deg)';
             rightPage.style.transition = 'transform 1s 1s';
             leftPage.style.transform = 'rotateY(90deg)';
             leftPage.style.transition = 'transform 1s';
         }
 
-        //向后翻页
+        // 向后翻页
         function next () {
             if (currentPage === 13) {
                 return;
@@ -198,13 +102,13 @@
             var rightPage = document.getElementById('rightPage' + currentPage);
             var leftPage = document.getElementById('leftPage' + currentPage);
 
-            //谷歌等浏览器
+            // 谷歌等浏览器
             rightPage.style.webkitTransform = 'rotateY(-90deg)';
             rightPage.style.webkitTransition = 'transform 1s';
             leftPage.style.webkitTransform = 'rotateY(0deg)';
             leftPage.style.webkitTransition = 'transform 1s 1s';
 
-            //火狐等浏览器
+            // 火狐等浏览器
             rightPage.style.transform = 'rotateY(-90deg)';
             rightPage.style.transition = 'transform 1s';
             leftPage.style.transform = 'rotateY(0deg)';
@@ -213,15 +117,24 @@
         }
 
         window.onload = function () {
-            //点击图片翻页
-            var leftPages = document.getElementsByClassName('leftPage');
-            var rightPages = document.getElementsByClassName('rightPage');
-            for (var i = 0; i < 12; i++) {
-                rightPages[i].addEventListener('click', next);
-                leftPages[i].addEventListener('click', previous);
+            for (var i = 1; i < 13; i++) {
+                var rightPage = document.getElementById('rightPage' + i);
+                var leftPage = document.getElementById('leftPage' + i);
+
+                // 点击图片翻页
+                rightPage.addEventListener('click', next);
+                leftPage.addEventListener('click', previous);
+
+                // 控制图片加载顺序
+                rightPage.style.backgroundImage = 'url("./img/' + i + '.jpg")';
+                rightPage.style.backgroundPosition = '-500px';
+                leftPage.style.backgroundImage = 'url("./img/' + (i + 1) + '.jpg")';
+                if (i === 12) {
+                    leftPage.style.backgroundImage = 'url("./img/1.jpg")';
+                }
             }
 
-            //键盘左右键翻页
+            // 键盘左右键翻页
             document.body.addEventListener('keydown', function (e) {
                 if (e.keyCode === 37) {
                     previous();
