@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>分享菜鸟加油站得十元!</title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://www.cnjyz.com/images/favicon.ico" />
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #c62126;
+        }
+    </style>
+    <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+        });
+
+        window.onload = function () {
+            var c = document.getElementById('canvas');
+            var ctx = c.getContext('2d');
+            c.width = window.innerWidth;
+            c.height = window.innerHeight;
+
+            ctx.font = c.width / 11 + 'px "Microsoft YaHei", "Heiti SC"';
+            ctx.fillStyle = 'white';
+            ctx.fillText("分享菜鸟加油站得十元!", c.width * 0.03, c.height * 0.15);
+
+            ctx.beginPath();
+            ctx.arc(c.width / 2, c.height / 2, c.width / 2.8, 0, 2 * Math.PI);
+            ctx.fillStyle = '#0e2a64';
+            ctx.fill();
+
+            var t = setInterval(circle, 50);
+            var i = 0;
+            var j = 10;
+            function circle() {
+                i += 0.1;
+                j -= 0.1;
+                if (i > 9) {
+                    clearInterval(t);
+                    c.addEventListener('touchstart', function () {
+                        if (confirm('立即前往分享')) {
+                            window.location = 'http://www.cnjyz.com/';
+                        }
+                    });
+                }
+                ctx.beginPath();
+                ctx.arc(c.width / 2, c.height / 2, c.width / j, 0, i * Math.PI);
+                ctx.fillStyle = '#fabb2f';
+                ctx.fill();
+
+                ctx.font = c.width / 11 + 'px "Microsoft YaHei", "Heiti SC"';
+                ctx.fillStyle = 'white';
+                ctx.fillText("分享菜鸟加油站得十元!", c.width * 0.03, c.height * 0.15);
+
+                ctx.font = c.width / 5 + 'px "Microsoft YaHei", "Heiti SC"';
+                ctx.fillStyle = 'white';
+                ctx.fillText('分享', c.width * 0.3, c.height * 0.53);
+            }
+
+
+            ctx.beginPath();
+            ctx.arc(c.width / 2, c.height / 2, c.width / 3, 0, 2 * Math.PI);
+            ctx.fillStyle = '#1d469c';
+            ctx.fill();
+        }
+    </script>
+</head>
+<body>
+<canvas id="canvas">
+
+</canvas>
+</body>
+</html>
